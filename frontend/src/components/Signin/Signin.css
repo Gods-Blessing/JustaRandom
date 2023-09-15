@@ -1,0 +1,69 @@
+.signin-up-space{
+    height: 3rem;
+}
+.signin-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-container>form{
+    background-color: rgba(26, 231, 88, 0.533);
+    padding: 1rem 2rem 2rem 2rem;
+    width: 40%;
+    border-radius: 1rem;
+
+}
+
+
+.signin-heading{
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 1.5rem;
+}
+
+.signin-container>form>div{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+}
+
+.signin-container>form>div>label{
+    margin-bottom: 2%;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.signin-container>form>div>input, .signin-container>form>div>select{
+    padding: 0.4rem 0.6rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.signin-container>form>div>select{
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+
+.error{
+    color: red;
+    margin-bottom: 0.5rem;
+}
+
+.signin-signup-btn{
+    background-color: rgba(50, 145, 66,1);
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+.signin-signup-link{
+    margin-top: 1rem;
+    font-weight: 500;
+}

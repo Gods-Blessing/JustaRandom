@@ -1,0 +1,79 @@
+.hiree-signup-container{
+    /* background-color: rgba(231, 135, 26, 0.533); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4rem;
+}
+
+.signup-buttons-div{
+    /* background-color: yellow; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    margin-bottom: 5%;
+}
+
+.signup-buttons-div>button{
+    padding: 0.2rem 1rem ;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: 2px solid black;
+    border-radius: 0.3rem;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.shdw-btn::after{
+    content: '';
+    position: absolute;
+    background-color: black;
+    height: 10%;
+    width: 90%;
+    filter: blur(5px);
+    bottom: -30px;
+    right: 5%;
+    border-radius: 60%;
+}
+
+.dark{
+    background-color: black;
+    color: white;
+}
+
+.signup-heading{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.hiree-signup-container>form{
+    background-color: var(--sign-signup-bg);
+    padding: 1rem 2rem 2rem 2rem;
+    width: 40%;
+    border-radius: 1rem;
+}
+
+.hiree-signup-container>form>div{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5%;
+}
+
+.hiree-signup-container>form>div>label{
+    margin-bottom: 2%;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.hiree-signup-container>form>div>input, .hiree-signup-container>form>div>select, .hiree-signup-container>form>div>textarea{
+    padding: 0.4rem 0.6rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+}

@@ -1,0 +1,52 @@
+.editing-btn, .updating-btn{
+    padding: 0.7rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+
+.profile-container{
+    margin-left: 5%;
+    padding: 2rem 3rem;
+}
+
+
+.info-div{
+    padding-top: 2%;
+}
+
+.info-div>div{
+    display: flex;
+    margin-bottom: 3%;
+    align-items: center;
+    gap: 2%;
+}
+
+.info-div>div>p:first-child{
+    font-size: 1.2rem;
+}
+
+/* ----------------- editing form css--------------- */
+.editing-form{
+    padding-top: 2%;
+}
+
+.editing-form>div{
+    display: flex;
+    margin-bottom: 3%;
+    /* align-items: center; */
+    gap: 2%;
+    flex-direction: column;
+}
+.editing-form>div>label{
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.editing-form>div>input, .editing-form>div>textarea{
+    font-size: 1.1rem;
+    padding: 0.4rem 1rem;
+    width: 40%;
+}

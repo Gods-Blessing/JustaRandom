@@ -1,0 +1,9 @@
+:root{
+    --sign-signup-bg: rgba(26, 231, 88, 0.533);
+}
+
+
+.spacer{
+    height: 4rem;
+    /* background-color: rebeccapurple; */
+}
