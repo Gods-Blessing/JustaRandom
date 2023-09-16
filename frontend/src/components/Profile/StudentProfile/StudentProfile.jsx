@@ -41,7 +41,6 @@ export default function StudentProfile(){
                 token: User.uid 
             }
         }).then((data)=>{
-            console.log(data);
             setStudentInfo(data.data.message);
             setStudentFormData(data.data.message);
         }).catch((error)=>{

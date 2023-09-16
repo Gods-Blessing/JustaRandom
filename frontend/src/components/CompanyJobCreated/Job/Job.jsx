@@ -40,9 +40,9 @@ export default function Job({detail}){
                 <h2>Candidates Applied</h2>
                 <ol>
                     { detail.StudentsApplied.length > 0 ?
-                        detail.StudentsApplied.map((data, idx)=>
-                            <Link to={`/company/candidate/profile/${data.id}`}>
-                                <li>{data}</li>
+                        detail.StudentsApplied.map((data, idx)=> (!detail.ShortListedStudents.includes(data._id) && !detail.RejectedStudents.includes(data._id)) &&
+                            <Link key={idx} to={`/company/candidate/profile/${data._id}/?post=${detail._id}`}>
+                                <li>{data.Name}</li>
                             </Link>
 
                         ) : <h4>No one Applied</h4>

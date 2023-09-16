@@ -1,15 +1,17 @@
-import React, {useContext, useEffect, useState, lazy, Suspense} from "react";
-import axios from "axios";
+import { lazy, Suspense, useEffect, useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-const MyJob = lazy(()=> import('./StudentJob/StudentJob'))
+import axios from "axios";
+
+let MyJob = lazy(()=> import('./AppliedJob/AppliedJob'));
 
 
-export default function JobsforStudent(){
+export default function StudentAppliedJobs(){
     let {User} = useContext(UserContext);
     const [allJobs, setAlljobs] = useState([]);
     const [someid, setsomeId] = useState('');
+
     useEffect(()=>{
-        axios.get(`${import.meta.env.VITE_HOST_URL}job/alljobs`, {
+        axios.get(`${import.meta.env.VITE_HOST_URL}job/applied/alljobs`, {
             headers:{
                 token: User.uid 
             }
@@ -23,11 +25,11 @@ export default function JobsforStudent(){
 
     return(
         <div className='jobs-container'>
-            <h1>Jobs / Internships</h1>
+            <h1>Applied Jobs / Internships</h1>
             <div>
                 {
-                    allJobs.map((data, idx)=> !data.StudentsApplied.includes(someid) && <Suspense key={idx} fallback={<h1>Loading...</h1>}>
-                        <MyJob key={idx} detail={data}/>
+                    allJobs.map((data, idx)=><Suspense key={idx} fallback={<h1>Loading...</h1>}>
+                        <MyJob key={idx} detail={data} someid={someid}/>
                     </Suspense> )
                 }
             </div>

@@ -13,6 +13,7 @@ import CandidateProfile from './components/CandidateProfile/CandidateProfile'
 import StudentProfile from './components/Profile/StudentProfile/StudentProfile'
 import { CompanyAuth, StudentAuth } from './Auth/Auth'
 import JobsforStudent from './components/JobsforStudent/JobsforStudent'
+import StudentAppliedJobs from './components/StudentAppliedJobs/StudentAppliedJobs'
 
 function App() {
 
@@ -60,6 +61,12 @@ function App() {
           <Route path='/student/applying/jobs' element={
           <StudentAuth>
             <JobsforStudent/>
+          </StudentAuth>
+          }/>
+
+          <Route path='/student/applied/jobs' element={
+          <StudentAuth>
+            <StudentAppliedJobs/>
           </StudentAuth>
           }/>
 

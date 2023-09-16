@@ -38,7 +38,7 @@ export const getStudentProfile = async(req,res)=>{
         })
     }
 
-    console.log(foundStudent);
+    // console.log(foundStudent);
     let copyStudent = foundStudent.toJSON();
     delete copyStudent._id;
     delete copyStudent.Password
@@ -46,7 +46,7 @@ export const getStudentProfile = async(req,res)=>{
     delete copyStudent.updatedAt
     delete copyStudent.__v
 
-    console.log(copyStudent);
+    // console.log(copyStudent);
 
     return res.status(200).json({
         message: copyStudent
@@ -55,10 +55,10 @@ export const getStudentProfile = async(req,res)=>{
 
 // update profile
 export const UpdateStudentProfile = async(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     let StudentUser = await Student.findById(req.userid);
-    console.log(StudentUser);
-    console.log(req.userid);
+    // console.log(StudentUser);
+    // console.log(req.userid);
 
     if(StudentUser.Email != req.body.Email && req.body.Email != ''){
         StudentUser.Email = req.body.Email
@@ -101,7 +101,7 @@ export const UpdateStudentProfile = async(req,res)=>{
     delete copyStudent.updatedAt
     delete copyStudent.__v
 
-    console.log(copyStudent);
+    // console.log(copyStudent);/
 
     return res.status(200).json({
         message: copyStudent
@@ -110,20 +110,24 @@ export const UpdateStudentProfile = async(req,res)=>{
 
 // apply for job
 export const ApplyforJob = async(req,res)=>{
-    console.log(req.userid);
-    console.log("post id ", req.params);
+    // console.log(req.userid);
+    // console.log("post id ", req.params);
     let StudentUser = await Student.findById(req.userid);
-    console.log(StudentUser);
+    // console.log(StudentUser);
 
     let foundJob = await Jobs.findById(req.params.id)
 
-    StudentUser.JobsApplied.push(foundJob.id);
-    foundJob.StudentsApplied.push(StudentUser.id);
-    await StudentUser.save()
-    await foundJob.save()
+    if(!StudentUser.JobsApplied.includes(foundJob.id)){
+        StudentUser.JobsApplied.push(foundJob.id);
+        await StudentUser.save()
+    }
+
+    if(!foundJob.StudentsApplied.includes(StudentUser.id)){
+        foundJob.StudentsApplied.push(StudentUser.id);
+        await foundJob.save()
+    }
 
     return res.status(200).json({
-        message:foundJob,
-        userid: Student._id
+        message:foundJob
     })
 }

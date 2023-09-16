@@ -8,6 +8,13 @@ import { UserContext } from '../../context/UserContext';
 export default function Nav(){
     let {User, setUser} = useContext(UserContext);
 
+    let Signout = ()=>{
+        if(localStorage.key('user_info')){
+            localStorage.removeItem('user_info')
+        }
+        setUser(null);
+    }
+
     const HandleulVis = ()=>{
         setulVisibilty(!ulVisibilty);
     }
@@ -35,13 +42,14 @@ export default function Nav(){
                 {(User && User.Role === 'Student') && <>
                     <Link to='/student/profile'><li>Profile</li></Link>
                     <Link to='/student/applying/jobs'><li>Jobs</li></Link>
-                    <Link to='/student/profile'><li>Applied</li></Link>
+                    <Link to='/student/applied/jobs'><li>Applied</li></Link>
                 </>}
             </ul>
 
             {/* <input className='search-input' type="text" /> */}
 
             <div className='home-auth-btns'>
+                {!User && <>
                 <Link to='/signin'>
                     <button>Signin</button>
                 </Link>
@@ -49,6 +57,11 @@ export default function Nav(){
                 <Link to='/signup'>
                     <button>Signup</button>
                 </Link>
+                </>}
+
+                {User && <Link onClick={Signout}>
+                    <button>Signout</button>
+                </Link>}
             </div>
 
 

@@ -31,6 +31,18 @@ const JobsSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref:'Student'
         }
+    ],
+    ShortListedStudents:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Student'
+        }
+    ],
+    RejectedStudents:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref:'Student'
+        }
     ]
 
 }, {timestamps: true});

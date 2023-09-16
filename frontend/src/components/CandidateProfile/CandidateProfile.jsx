@@ -1,14 +1,54 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom"
+import './CandidateProfile.css'
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 
 
 export default function CandidateProfile(){
+    let {User} = useContext(UserContext)
     const params = useParams();
-    console.log(params.id);
+    let [ParamSearch] = useSearchParams();
+    const [studentInfo, setStudentInfo] = useState();
+
+    const ShortListCandidate = ()=>{
+        axios.get(`${import.meta.env.VITE_HOST_URL}company/candidate/shortlist/${params.id}/?post=${ParamSearch.get('post')}`, {
+            headers:{
+                token: User.uid 
+            }
+        }).then((data)=>{
+            console.log(data);
+            // setStudentInfo(data.data.message)
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
+
+    const RejectCandidate = ()=>{
+        axios.get(`${import.meta.env.VITE_HOST_URL}company/candidate/reject/${params.id}/?post=${ParamSearch.get('post')}`, {
+            headers:{
+                token: User.uid 
+            }
+        }).then((data)=>{
+            console.log(data);
+            // setStudentInfo(data.data.message)
+        }).catch((error)=>{
+            console.log(error);
+        })
+    }
+
 
     useEffect(()=>{
-
+        axios.get(`${import.meta.env.VITE_HOST_URL}company/candidate/profile/${params.id}`, {
+            headers:{
+                token: User.uid 
+            }
+        }).then((data)=>{
+            setStudentInfo(data.data.message)
+        }).catch((error)=>{
+            console.log(error);
+        })
     }, [])
 
 
@@ -17,24 +57,54 @@ export default function CandidateProfile(){
             <h1>Candidate Profile</h1>
             <div className='info-div'>
                 <div>
-                    <p>Candidate Name :</p>
-                    <p>ABC</p>
+                    <p>Name :</p>
+                    <p>{studentInfo && studentInfo.Name}</p>
                 </div>
 
                 <div>
-                    <p>Candidate Email :</p>
-                    <p>ABC</p>
+                    <p>Email :</p>
+                    <p>{studentInfo && studentInfo.Email}</p>
                 </div>
 
                 <div>
-                    <p>Phone Number :</p>
-                    <p>ABC</p>
+                    <p>Mobile Number :</p>
+                    <p>{studentInfo && studentInfo.MobileNumber}</p>
+                </div>
+
+                <div>
+                    <p>College Name :</p>
+                    <p>{studentInfo && studentInfo.CollegeName}</p>
+                </div>
+
+                <div>
+                    <p>Graduation Branch :</p>
+                    <p>{studentInfo && studentInfo.GraduationBranch}</p>
+                </div>
+
+                <div>
+                    <p>Year of Joining :</p>
+                    <p>{studentInfo && studentInfo.YearOfJoining}</p>
+                </div>
+
+                <div>
+                    <p>Interests :</p>
+                    <p>{studentInfo && studentInfo.Interests}</p>
+                </div>
+
+                <div>
+                    <p>Skills :</p>
+                    <p>{studentInfo && studentInfo.Skills}</p>
                 </div>
 
                 <div>
                     <p>Bio :</p>
-                    <p>ABC</p>
+                    <p>{studentInfo && studentInfo.Bio}</p>
                 </div>
+            </div>
+
+            <div className="candiate-btns">
+                <button onClick={ShortListCandidate}>Select</button>
+                <button onClick={RejectCandidate}>Reject</button>
             </div>
             
         </section>

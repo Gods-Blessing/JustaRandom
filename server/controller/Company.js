@@ -1,5 +1,6 @@
 import { Company } from "../models/Company.model.js";
-
+import {Student} from '../models/Student.model.js';
+import {Jobs} from '../models/Job.model.js'
 
 
 export const SignupCompany = async(req,res)=>{
@@ -117,9 +118,80 @@ export const getAllJobs = async(req,res)=>{
     }
 
     await CompanyBio.populate('JobsCreated')
+    for(let i of CompanyBio.JobsCreated){
+        await i.populate('StudentsApplied', '_id Name')
+        console.log(i);
+    }
+    // console.log(CompanyBio);
 
     return res.status(200).json({
         message: CompanyBio.JobsCreated
     })
 }
 
+
+// getting candidate profile
+export const CandidateProfile = async(req,res)=>{
+    // console.log(req.params);
+    let Candidate = await Student.findById(req.params.id);
+    // console.log(Candidate);
+
+    let copy = Candidate.toJSON();
+    delete copy.Password;
+    delete copy.createdAt;
+    delete copy.updatedAt;
+    delete copy.__v;
+
+
+    // console.log("copied =>", copy);
+    return res.status(200).json({
+        message: copy
+    })
+
+}
+
+// shortlisting
+export const Shortlist = async(req,res)=>{
+    // console.log(req.params);
+    // console.log(req.query);
+    let PostedJob = await Jobs.findById(req.query.post);
+    // console.log(PostedJob);
+    if(!PostedJob){
+        return res.status(401).json({
+            message:"Post Doesn't Exist"
+        })
+    }
+    if(!PostedJob.ShortListedStudents.includes(req.params.id)){
+        PostedJob.ShortListedStudents.push(req.params.id)
+        await PostedJob.save();
+    }
+
+    // console.log(PostedJob);
+
+    return res.status(200).json({
+        message: "Shortlisted"
+    })
+}
+
+// rejecting candidate
+export const RejectCandidate = async(req,res)=>{
+
+    let PostedJob = await Jobs.findById(req.query.post);
+    // console.log(PostedJob);
+    if(!PostedJob){
+        return res.status(401).json({
+            message:"Post Doesn't Exist"
+        })
+    }
+
+    if(!PostedJob.RejectedStudents.includes(req.params.id)){
+        PostedJob.RejectedStudents.push(req.params.id)
+        await PostedJob.save();
+    }
+
+    // console.log(PostedJob);
+
+    return res.status(200).json({
+        message: "Rejected"
+    })
+}

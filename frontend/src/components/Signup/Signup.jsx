@@ -53,14 +53,14 @@ export default function Signup(){
     }
 
     const HandleJobSeekerformChange = (e)=>{
-        console.log(jobSeekerData)
+        // console.log(jobSeekerData)
         setJobSeekerData((prev)=>{
             return {...prev, [e.target.name]: e.target.value};
         })
     }
 
     const HandleHirersFormChange = (e)=>{
-        console.log(HirersData);
+        // console.log(HirersData);
         setHirersData((prev)=>{
             return {...prev, [e.target.name]: e.target.value}
         })
@@ -68,7 +68,7 @@ export default function Signup(){
 
     const HandleJobSubmit = async(e)=>{
         e.preventDefault();
-        console.log("submitting = >", jobSeekerData);
+        // console.log("submitting = >", jobSeekerData);
         axios.post(`${import.meta.env.VITE_HOST_URL}student/create/student`, {
             ...jobSeekerData
         }).then((data)=>{
@@ -82,7 +82,7 @@ export default function Signup(){
 
     const HandleHirerSubmit = async(e)=>{
         e.preventDefault();
-        console.log(HirersData);
+        // console.log(HirersData);
 
         axios.post(`${import.meta.env.VITE_HOST_URL}company/create/company`, {
             ...HirersData

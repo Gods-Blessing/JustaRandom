@@ -27,7 +27,7 @@ export const CreateJob = async(req,res)=>{
 
 // all jobs
 export const AllJobs = async(req,res)=>{
-    const studentUser = await Student.findById(req.userid);
+    const studentUser = await Student.findById(req.userid).sort('createdAt');
     if(!studentUser){
         return res.status(401).json({
             message:"UnAuthorized"
@@ -41,6 +41,27 @@ export const AllJobs = async(req,res)=>{
     // console.log(jobbs);
 
     return res.status(200).json({
-        message: jobbs
+        message: jobbs,
+        someid: req.userid
+    })
+}
+
+
+
+// Applied Jobs
+export const AppliedJobs = async(req,res)=>{
+    const studentUser = await Student.findById(req.userid);
+    if(!studentUser){
+        return res.status(401).json({
+            message:"UnAuthorized"
+        })
+    }
+
+    await studentUser.populate('JobsApplied');
+    // console.log(studentUser);
+
+    return res.status(200).json({
+        message: studentUser.JobsApplied,
+        someid: req.userid
     })
 }
