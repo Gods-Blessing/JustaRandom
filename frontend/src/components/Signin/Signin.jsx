@@ -13,9 +13,12 @@ let defaultValue = {
 export default function Signin(){
     let Nav = useNavigate();
     let {User, setUser} = useContext(UserContext);
-    console.log(User);
     const [UserDetail, setUserDetail] = useState(defaultValue);
     const [error, setError] = useState(false);
+
+    if(User){
+        Nav('/');
+    }
 
     // Handling the form change
     const HandleChange = (e)=>{
@@ -32,7 +35,7 @@ export default function Signin(){
         axios.post(`${import.meta.env.VITE_HOST_URL}signin`, {
             ...UserDetail
         }).then((data)=>{
-            console.log(data.data.message);
+            // console.log(data.data.message);
             if(data.data.message.Name && data.data.message.isAuth && data.data.message.uid && data.data.message.Role){
                 localStorage.setItem('user_info',
                     JSON.stringify(data.data.message)

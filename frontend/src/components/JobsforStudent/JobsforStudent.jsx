@@ -1,3 +1,4 @@
+import './JobforStudent.css'
 import React, {useContext, useEffect, useState, lazy, Suspense} from "react";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
@@ -24,6 +25,20 @@ export default function JobsforStudent(){
     return(
         <div className='jobs-container'>
             <h1>Jobs / Internships</h1>
+
+            {/* <div className="jobs-filter-container"> */}
+                <form action="" className='jobs-filter-container'>
+                    <select name="JobType" id="" >
+                        <option value="">Job...</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+
+                    <input type="text" placeholder='Location...'/>
+                    <button>Search</button>
+                </form>
+            {/* </div> */}
+
             <div>
                 {
                     allJobs.map((data, idx)=> !data.StudentsApplied.includes(someid) && <Suspense key={idx} fallback={<h1>Loading...</h1>}>

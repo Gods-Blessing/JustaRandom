@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './Signup.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
+import { UserContext } from '../../context/UserContext';
 
 
 
@@ -36,11 +37,16 @@ const defaultval = {
 }
 
 export default function Signup(){
+    let {User} = useContext(UserContext);
     let Nav = useNavigate();
     const [company, setCompany] = useState(true);
     const [searchJob, setSearchJob] = useState(false);
     const [jobSeekerData, setJobSeekerData] = useState(defaultValue)
     const [HirersData, setHirersData] = useState(defaultval);
+
+    if(User){
+        Nav('/');
+    }
 
     const HandleHiring = ()=>{
         setSearchJob(false);

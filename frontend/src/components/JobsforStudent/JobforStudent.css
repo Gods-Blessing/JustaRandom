@@ -1,0 +1,27 @@
+.jobs-filter-container{
+    background-color: aqua;
+    padding: 1rem 0rem;
+    /* width: 100vw;
+    height: 20vh; */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0rem;
+    gap: 3rem;
+}
+
+.jobs-filter-container>select, .jobs-filter-container>input{
+    width: 20%;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+}
+
+.jobs-filter-container>input{
+    width: 40%;
+}
+
+.jobs-filter-container>button{
+    align-self: stretch;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+}
