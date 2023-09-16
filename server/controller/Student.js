@@ -131,3 +131,29 @@ export const ApplyforJob = async(req,res)=>{
         message:foundJob
     })
 }
+
+
+
+// get searched student
+export const SearchStudent = async(req,res)=>{
+    let emaill = req.body.searchValue.toLowerCase();
+    console.log(emaill);
+    let searchedUser = await Student.findOne({Email: emaill})
+
+    if(!searchedUser){
+        return res.status(401).json({
+            message: "No user Exist"
+        })
+    }
+
+    let copyUser = searchedUser.toJSON();
+    delete copyUser._id;
+    delete copyUser.Password
+    delete copyUser.createdAt
+    delete copyUser.updatedAt
+    delete copyUser.__v
+
+    return res.status(200).json({
+        message: copyUser
+    })
+}

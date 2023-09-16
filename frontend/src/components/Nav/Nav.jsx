@@ -43,6 +43,8 @@ export default function Nav(){
                     <Link to='/student/profile'><li>Profile</li></Link>
                     <Link to='/student/applying/jobs'><li>Jobs</li></Link>
                     <Link to='/student/applied/jobs'><li>Applied</li></Link>
+                    <Link to='/student/search'><li>Find Friends</li></Link>
+
                 </>}
             </ul>
 
