@@ -1,5 +1,5 @@
 import './JobforStudent.css'
-import React, {useContext, useEffect, useState, lazy, Suspense} from "react";
+import React, {useContext, useEffect, useState, lazy, Suspense, useCallback} from "react";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
 const MyJob = lazy(()=> import('./StudentJob/StudentJob'))
@@ -9,8 +9,17 @@ export default function JobsforStudent(){
     let {User} = useContext(UserContext);
     const [allJobs, setAlljobs] = useState([]);
     const [someid, setsomeId] = useState('');
-    useEffect(()=>{
-        axios.get(`${import.meta.env.VITE_HOST_URL}job/alljobs`, {
+    const [filterForm, setFilterForm] = useState({JobType:'', Location:''})
+
+    const FilterFormChange = (e)=>{
+        setFilterForm((prev)=>{
+            return {...prev, [e.target.name]:e.target.value}
+        })
+    }
+
+
+    const getallJobbs = useCallback(()=>{
+        axios.get(`${import.meta.env.VITE_HOST_URL}job/alljobs/?JobType=${filterForm.JobType}&Location=${filterForm.Location}`, {
             headers:{
                 token: User.uid 
             }
@@ -20,22 +29,26 @@ export default function JobsforStudent(){
         }).catch((error)=>{
             console.log(error);
         })
-    }, [])
+    }, [filterForm])
+
+    useEffect(()=>{
+        getallJobbs();
+    }, [filterForm])
 
     return(
         <div className='jobs-container'>
             <h1>Jobs / Internships</h1>
 
             {/* <div className="jobs-filter-container"> */}
-                <form action="" className='jobs-filter-container'>
-                    <select name="JobType" id="" >
-                        <option value="">Job...</option>
+                <form  action="" className='jobs-filter-container'>
+                    <select onChange={FilterFormChange} name="JobType" id="" value={filterForm.JobType}>
+                        <option value="">Job Type...</option>
                         <option value="Full-time">Full-time</option>
                         <option value="Internship">Internship</option>
                     </select>
 
-                    <input type="text" placeholder='Location...'/>
-                    <button>Search</button>
+                    <input onChange={FilterFormChange} type="text" placeholder='Location...' name='Location' value={filterForm.Location}/>
+                    {/* <button>Search</button> */}
                 </form>
             {/* </div> */}
 

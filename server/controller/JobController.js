@@ -27,18 +27,46 @@ export const CreateJob = async(req,res)=>{
 
 // all jobs
 export const AllJobs = async(req,res)=>{
-    const studentUser = await Student.findById(req.userid).sort('createdAt');
+    const studentUser = await Student.findById(req.userid);
     if(!studentUser){
         return res.status(401).json({
             message:"UnAuthorized"
         })
     }
 
-    let jobbs = await Jobs.find({});
-    for(let i of jobbs){
-        await i.populate('CompanyCreated')
+    let jobbs;
+
+    if(req.query.Location != '' || req.query.JobType != ''){
+        // filtering using aggregations
+        jobbs = await Jobs.aggregate([{$match:
+            {$and:[
+                {Location:{$regex: req.query.Location , $options:'i'}},
+                {JobType:{$regex: req.query.JobType , $options:'i'}}
+            ]}},
+            {
+                $lookup: {
+                    from: "companies",
+                    localField: "CompanyCreated",
+                    foreignField: "_id",
+                    as: "CompanyCreated"
+                }
+            },
+            {
+                $project:{"CompanyCreated.Password":0}
+            },
+            {
+                $unwind:"$CompanyCreated"
+            }
+            ])
+    }else{
+        jobbs = await Jobs.find({}).sort('createdAt').populate('CompanyCreated', 'CompanyName CompanyEmail CompanyContactNumber YearFounded CompanyType WebsiteUrl State CompanySize CompanyBio');
     }
-    // console.log(jobbs);
+
+    // if(jobbs.length > 0){
+    //     for(let i of jobbs){
+    //         await i.populate('CompanyCreated', 'CompanyName CompanyEmail CompanyContactNumber YearFounded CompanyType WebsiteUrl State CompanySize CompanyBio')
+    //     }
+    // }
 
     return res.status(200).json({
         message: jobbs,
@@ -65,3 +93,5 @@ export const AppliedJobs = async(req,res)=>{
         someid: req.userid
     })
 }
+
+

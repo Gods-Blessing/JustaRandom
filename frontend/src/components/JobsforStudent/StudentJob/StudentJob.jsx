@@ -40,6 +40,11 @@ export default function StudentJob({detail}){
                 </div>
 
                 <div>
+                    <p>Location :</p>
+                    <p>{detail.Location}</p>
+                </div>
+
+                <div>
                     <p>CTC / Stipend :</p>
                     <p>{detail.Stipend}</p>
                 </div>

@@ -4,7 +4,7 @@ export const creatingToken = (id)=>{
     let token = jwt.sign({
         data: id
       }, process.env.BE_JWT_SECRET , { expiresIn: '7d' });
-    console.log(token);
+    // console.log(token);
 
     return token;
 }
