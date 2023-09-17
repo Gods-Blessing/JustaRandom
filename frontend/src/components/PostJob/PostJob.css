@@ -29,7 +29,7 @@
     font-weight: 600;
 }
 
-.job-creating-container>form>div>input,.job-creating-container>form>div>textarea{
+.job-creating-container>form>div>input,.job-creating-container>form>div>textarea, .job-creating-container>form>div>select{
     padding: 0.5rem 1rem;
     font-weight: 600;
     font-size: 1.1rem;

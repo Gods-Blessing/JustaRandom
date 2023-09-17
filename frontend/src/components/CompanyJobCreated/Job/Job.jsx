@@ -16,6 +16,11 @@ export default function Job({detail}){
                 </div>
 
                 <div>
+                    <p>Role :</p>
+                    <p>{detail.JobType}</p>
+                </div>
+
+                <div>
                     <p>Company :</p>
                     <p>{User && User.Name}</p>
                 </div>

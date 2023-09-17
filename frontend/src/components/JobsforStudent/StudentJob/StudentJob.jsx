@@ -30,6 +30,11 @@ export default function StudentJob({detail}){
                 </div>
 
                 <div>
+                    <p>Role :</p>
+                    <p>{detail.JobType}</p>
+                </div>
+
+                <div>
                     <p>Company :</p>
                     <p>{detail.CompanyCreated.CompanyName}</p>
                 </div>

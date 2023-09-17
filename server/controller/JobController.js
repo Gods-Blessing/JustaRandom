@@ -57,7 +57,7 @@ export const AppliedJobs = async(req,res)=>{
         })
     }
 
-    await studentUser.populate('JobsApplied');
+    await studentUser.populate({path:'JobsApplied', populate:{path: 'CompanyCreated', select:'CompanyName'}});
     // console.log(studentUser);
 
     return res.status(200).json({

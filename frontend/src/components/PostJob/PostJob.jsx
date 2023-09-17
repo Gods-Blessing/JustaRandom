@@ -9,6 +9,7 @@ export default function PostJob(){
     let {User} = useContext(UserContext)
     const [jobData, setJobData] = useState({
         JobRole:'',
+        JobType:'',
         Stipend:'',
         Location:'',
         Skills:'',
@@ -36,6 +37,7 @@ export default function PostJob(){
             if(data.status == 200){
                 setJobData({
                     JobRole:'',
+                    JobType:'',
                     Stipend:'',
                     Location:'',
                     Skills:'',
@@ -56,6 +58,15 @@ export default function PostJob(){
                 <div>
                     <label htmlFor="">Job Role :</label>
                     <input onChange={HandleJobFormChange} type="text" name="JobRole" value={jobData.JobRole} required/>
+                </div>
+
+                <div>
+                    <label htmlFor="">Job Type :</label>
+                    <select onChange={HandleJobFormChange} name="JobType" id="" required>
+                        <option value="">Select Job type...</option>
+                        <option value="Job">Job</option>
+                        <option value="Internship">Internship</option>
+                    </select>
                 </div>
 
                 <div>

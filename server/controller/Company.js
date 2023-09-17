@@ -120,7 +120,6 @@ export const getAllJobs = async(req,res)=>{
     await CompanyBio.populate('JobsCreated')
     for(let i of CompanyBio.JobsCreated){
         await i.populate('StudentsApplied', '_id Name')
-        console.log(i);
     }
     // console.log(CompanyBio);
 
